@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Turnstile Demo</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+
+<body>
+
+    <form action="posttest.php" method="post">
+        Username: <input type="text" name="username" /> <br>
+        Blood Group: <input type="text" name="bloodgroup" /> <br>
+        <!-- The Turnstile widget will be injected in the following div. -->
+        <div class="cf-turnstile" data-sitekey="YOUR_SITE_KEY" data-callback="javascriptCallback" data-language="ja"
+            data-appearance="always"></div>
+        <!-- end. -->
+        <input type="submit" id="submit" disabled />
+    </form>
+
+    <script>
+        window.javascriptCallback = function () {
+            document.getElementById('submit').disabled = false;
+            console.log(`Challenge Success.`);
+        }
+    </script>
+</body>
+
+</html>

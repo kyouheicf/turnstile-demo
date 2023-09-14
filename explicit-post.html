@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Turnstile Demo</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
+</head>
+
+<body>
+
+    <form action="posttest.php" method="post">
+        Username: <input type="text" name="username" /> <br>
+        Blood Group: <input type="text" name="bloodgroup" /> <br>
+        <!-- The Turnstile widget will be injected in the following div. -->
+        <div id="turnstileWidget"></div>
+        Token: <input type="text" name="token" id="token" /> <br>
+        <!-- end. -->
+        <input type="submit" id="submit" disabled />
+    </form>
+
+    <script>
+        // This function is called when the Turnstile script is loaded and ready to be used.
+        // The function name matches the "onload=..." parameter.
+        // if using synchronous loading, will be called once the DOM is ready
+        window.onloadTurnstileCallback = function () {
+            turnstile.render('#turnstileWidget', {
+                sitekey: 'YOUR_SITE_KEY',
+                theme: 'auto',
+                language: 'ja',
+                action: 'posttest',
+                callback: function (token) {
+                    document.getElementById('submit').disabled = false;
+                    document.getElementById('token').value = token;
+                    console.log(`Challenge Success. Token === ${token}`);
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>
